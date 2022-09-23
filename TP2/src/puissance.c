@@ -12,7 +12,7 @@ int puissance(int a, int b) {
 int main() {
     int a=2;
     int b=2;
-    printf("%d ^ %d = %d \r ", a, b, puissance(a, b)); // \r pour retour à la ligne
+    printf("%d ^ %d = %d \n ", a, b, puissance(a, b)); // \r pour retour à la ligne
     return 0;
 }
 
