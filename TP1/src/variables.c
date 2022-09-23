@@ -1,5 +1,3 @@
-//Print the value of the variable v=5 with differents type of bases variables in C.
-// Include signed and unsigned for :char, short, int, long, long long, float, double, long double.
 
 #include <stdio.h>
 

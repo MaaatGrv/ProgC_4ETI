@@ -1,5 +1,3 @@
-// Contribu
-
 #include <stdio.h>
 
 int main()
