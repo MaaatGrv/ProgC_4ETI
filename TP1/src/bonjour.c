@@ -1,4 +1,4 @@
-// Print "bonjour le monde' on the screen"
+// Contribu
 
 #include <stdio.h>
 
