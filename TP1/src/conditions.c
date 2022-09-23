@@ -1,7 +1,3 @@
-//Print the number between 0 and 1000 that are divisible by 2 and 15.
-//Print the number between 0 and 1000 that are divisible by 103 or 107.
-//Print the number between 0 and 1000 that are divisible by 7 or 5 but not by 3.
-//Make sure to use 'while' and 'for' loops, 'break' and' continue' statements.
 
 #include <stdio.h>
 

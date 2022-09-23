@@ -1,5 +1,3 @@
-//Calculate the era and the perimeter of a circle with the variable a radius of 5.4 and print the result on the screen.
-
 #include <stdio.h>
 
 int main()

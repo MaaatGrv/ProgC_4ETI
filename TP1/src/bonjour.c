@@ -1,4 +1,3 @@
-// Contribu
 
 #include <stdio.h>
 

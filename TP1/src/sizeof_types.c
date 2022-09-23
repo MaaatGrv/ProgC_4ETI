@@ -1,5 +1,3 @@
-//Print the size of differents type of bases variables in C in octets.
-// Include signed and unsigned char, short, int, long, long long, float, double, long double.
 
 #include <stdio.h>
 
