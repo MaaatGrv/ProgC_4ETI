@@ -3,7 +3,7 @@
 
 int main() {
     char chaine1[] = "Bonjour les amis";
-    char chaine2[] = ",je suis Michel !";
+    char chaine2[] = ", konishiwa!";
     
     int i = 0;
     int j = 0;
@@ -19,7 +19,7 @@ int main() {
 
     n = i;
     m = j;
-    char chaine3[n+m];
+    char chaine3[i+j+1];
 
     for (i = 0; i < n; i++) { // On copie la chaine1 dans la chaine3
         chaine3[i] = chaine1[i];
