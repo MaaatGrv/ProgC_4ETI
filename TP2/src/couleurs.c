@@ -31,10 +31,10 @@ int main() {
     couleurs[3].b = 0x5c;
     couleurs[3].a = 0x3a;
     couleurs[4].r = 0xf5;
-    couleurs[4].g = 0x71;
+    couleurs[4].g = 0xb1;
     couleurs[4].b = 0x38;
     couleurs[4].a = 0x43;
-    couleurs[5].r = 0xfe;
+    couleurs[5].r = 0xde;
     couleurs[5].g = 0x11;
     couleurs[5].b = 0x87;
     couleurs[5].a = 0xda;
@@ -48,10 +48,10 @@ int main() {
     couleurs[7].a = 0x3f;
     couleurs[8].r = 0xbe;
     couleurs[8].g = 0x2b;
-    couleurs[8].b = 0x50;
+    couleurs[8].b = 0xa0;
     couleurs[8].a = 0x26;
     couleurs[9].r = 0xef;
-    couleurs[9].g = 0x23;
+    couleurs[9].g = 0xc3;
     couleurs[9].b = 0x14;
     couleurs[9].a = 0x30;
     for (int i = 0; i < 10; i++) {
