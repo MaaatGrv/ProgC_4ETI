@@ -1,7 +1,3 @@
-/*Écrivez un programme pour la gestion de données
-étudiant.e.es (5 étudiants) en utilisant struct. Vous pouvez utiliser `strcpy` pour initialiser les
-noms, prénoms etc.*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,32 +6,44 @@ typedef struct {
     char nom[20];
     char prenom[20];
     char adresse[20];
-    int notes[2];
+    union {
+        int notes[2];
+    };
 } Etudiant;
 
 int main() {
     Etudiant etudiants[5];
+    strcpy(etudiants[0].nom, "Doe");
+    strcpy(etudiants[0].prenom, "John");
+    strcpy(etudiants[0].adresse, "1234 Main St");
+    etudiants[0].notes[0] = 10;
+    etudiants[0].notes[1] = 20;
+    strcpy(etudiants[1].nom, "Doe");
+    strcpy(etudiants[1].prenom, "Jane");
+    strcpy(etudiants[1].adresse, "1234 Main St");
+    etudiants[1].notes[0] = 10;
+    etudiants[1].notes[1] = 20;
+    strcpy(etudiants[2].nom, "Doe");
+    strcpy(etudiants[2].prenom, "Jack");
+    strcpy(etudiants[2].adresse, "1234 Main St");
+    etudiants[2].notes[0] = 10;
+    etudiants[2].notes[1] = 20;
+    strcpy(etudiants[3].nom, "Doe");
+    strcpy(etudiants[3].prenom, "Jill");
+    strcpy(etudiants[3].adresse, "1234 Main St");
+    etudiants[3].notes[0] = 10;
+    etudiants[3].notes[1] = 20;
+    strcpy(etudiants[4].nom, "Doe");
+    strcpy(etudiants[4].prenom, "Jenny");
+    strcpy(etudiants[4].adresse, "1234 Main St");
+    etudiants[4].notes[0] = 10;
+    etudiants[4].notes[1] = 20;
     for (int i = 0; i < 5; i++) {
-        printf("                    \n"); 
-        printf("Nom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].nom);
-        printf("Prénom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].prenom);
-        printf("Adresse de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].adresse);
-        printf("Note de Programmation en C de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[0]);
-        printf("Note de Système d'exploitation de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[1]);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        printf("                    \n"); 
-        printf("Nom de l'étudiant %d: %s \n", i + 1, etudiants[i].nom); 
-        printf("Prénom de l'étudiant %d: %s \n", i + 1, etudiants[i].prenom);
-        printf("Adresse de l'étudiant %d: %s \n", i + 1, etudiants[i].adresse);
-        printf("Note de Programmation en C de l'étudiant %d: %d \n", i + 1, etudiants[i].notes[0]);
-        printf("Note de Système d'exploitation de l'étudiant %d: %d \n", i + 1, etudiants[i].notes[1]);
+        printf("Nom : %s \n", etudiants[i].nom);
+        printf("Prenom : %s \n", etudiants[i].prenom);
+        printf("Adresse : %s \n", etudiants[i].adresse);
+        printf("Premiere note : %d \n", etudiants[i].notes[0]);
+        printf("Deuxieme note : %d \n", etudiants[i].notes[1]);
     }
     return 0;
 }
