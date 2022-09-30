@@ -12,7 +12,7 @@ int fibonacci(int n) {
 }
 
 int main() {
-    int n = 10;
+    int n = 15;
     printf("fibonacci(%d) = %d \n ", n, fibonacci(n)); 
     return 0;
 }
