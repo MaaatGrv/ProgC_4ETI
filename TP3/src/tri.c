@@ -2,9 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(void)
 {
+    srand(time(NULL));
     int tab[100];
     int i;
     int j;
