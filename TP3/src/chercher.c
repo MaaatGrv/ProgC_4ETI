@@ -1,6 +1,8 @@
 //create a tab of 100 random numbers and find a number in it, if it present print the message "entier present"
 
 #include <stdio.h>
+#include <stdlib.h>
+
 
 int main(void)
 {

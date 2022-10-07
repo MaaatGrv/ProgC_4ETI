@@ -1,7 +1,7 @@
-// create a tab of 100 random numbers and sort it in ascending order
+
 
 #include <stdio.h>
-
+#include <stdlib.h>
 
 int main(void)
 {
