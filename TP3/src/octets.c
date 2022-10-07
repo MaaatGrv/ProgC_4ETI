@@ -1,4 +1,4 @@
-//use char* and pointer to find the octets of a variable int,short,float,long int, double and long double
+
 
 #include <stdio.h>
 
