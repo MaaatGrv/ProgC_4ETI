@@ -2,31 +2,33 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-int main() {
-    int tabint[10];
-    float tabfloat[10];
-    int *ptabint = tabint;
-    float *ptabfloat = tabfloat;
-    for (int i = 0; i < 10; i++) {
-        tabint[i] = rand() %100;
-        tabfloat[i] = rand() %101;
+int main()
+{
+    int tab1[10];
+    float tab2[10];
+    int *ptr1 = tab1;
+    float *ptr2 = tab2;
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++)
+    {
+        tab1[i] = rand() % 100;
+        tab2[i] = (float)rand() / (float)(RAND_MAX / 100);
     }
-    for (int i = 0; i < 10; i++) {
-        printf("tabint[%d] = %d \t tabfloat[%d] = %f \n", i, tabint[i], i, tabfloat[i]);
-    }
-    for (int i = 0; i < 10; i++) {
-        if (i % 2 == 0) {
-            *(ptabint + i) *= 3;
-            *(ptabfloat + i) *= 3;
+    for (int i = 0; i < 10; i++)
+    {
+        if (i % 2 == 0)
+        {
+            *ptr1 *= 3;
+            *ptr2 *= 3;
         }
+        ptr1++;
+        ptr2++;
     }
-
-    printf("        \n");
-
-    for (int i = 0; i < 10; i++) {
-        printf("tabint[%d] = %d \t tabfloat[%d] = %f \n", i, tabint[i], i, tabfloat[i]);
+    for (int i = 0; i < 10; i++)
+    {
+        printf("tab1[%d] = %d, tab2[%d] = %f \n", i, tab1[i], i, tab2[i]);
     }
     return 0;
 }
-

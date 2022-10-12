@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-
 int fibonacci(int n) {
-    int i, a = 0, b = 1, c;
+    int a = 0, b = 1, c;
+    int i;
     for (i = 0; i < n; i++) {
         c = a + b;
         a = b;
@@ -12,8 +12,9 @@ int fibonacci(int n) {
 }
 
 int main() {
-    int n = 15;
-    printf("fibonacci(%d) = %d \n ", n, fibonacci(n)); 
+    int n;
+    printf("Entrez n : ");
+    scanf("%d", &n);
+    printf("fibonacci(%d) = %d", n, fibonacci(n));
     return 0;
 }
-

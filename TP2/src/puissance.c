@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 int puissance(int a, int b) {
@@ -10,9 +9,8 @@ int puissance(int a, int b) {
 }
 
 int main() {
-    int a=2;
-    int b=2;
-    printf("%d ^ %d = %d \n ", a, b, puissance(a, b)); // \r pour retour à la ligne
+    int a, b;
+    printf("Entrez a et b : ");
+    scanf("%d %d", &a, &b);
+    printf("%d^%d = %d ", a, b, puissance(a, b));
     return 0;
-}
-

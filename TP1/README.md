@@ -1,6 +1,5 @@
 # Bibliothèques
 * stdio.h
-*
 
 # Références
 *groupe D

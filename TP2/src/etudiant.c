@@ -11,31 +11,21 @@ typedef struct {
 } Etudiant;
 
 int main() {
-    Etudiant etudiants[5];
-    for (int i = 0; i < 5; i++) {
-        printf("                    \n"); 
-        printf("Nom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].nom);
-        printf("Prénom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].prenom);
-        printf("Adresse de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].adresse);
-        printf("Note de Programmation en C de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[0]);
-        printf("Note de Système d'exploitation de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[1]);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        printf("                    \n"); 
-        printf("Nom de l'étudiant %d: %s \n", i + 1, etudiants[i].nom); 
-        printf("Prénom de l'étudiant %d: %s \n", i + 1, etudiants[i].prenom);
-        printf("Adresse de l'étudiant %d: %s \n", i + 1, etudiants[i].adresse);
-        printf("Note de Programmation en C de l'étudiant %d: %d \n", i + 1, etudiants[i].notes[0]);
-        printf("Note de Système d'exploitation de l'étudiant %d: %d \n", i + 1, etudiants[i].notes[1]);
-    }
+    Etudiant etudiant;
+    printf("Entrez le nom : ");
+    scanf("%s", etudiant.nom);
+    printf("Entrez le prenom : ");
+    scanf("%s", etudiant.prenom);
+    printf("Entrez l'adresse : ");
+    scanf("%s", etudiant.adresse);
+    printf("Entrez la premiere note : ");
+    scanf("%d", &etudiant.notes[0]);
+    printf("Entrez la deuxieme note : ");
+    scanf("%d", &etudiant.notes[1]);
+    printf("Nom : %s \n", etudiant.nom);
+    printf("Prenom : %s \n", etudiant.prenom);
+    printf("Adresse : %s \n", etudiant.adresse);
+    printf("Premiere note : %d \n", etudiant.notes[0]);
+    printf("Deuxieme note : %d \n", etudiant.notes[1]);
     return 0;
 }
-
-
-

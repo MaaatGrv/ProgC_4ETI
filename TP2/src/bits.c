@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 int main() {
@@ -8,5 +7,6 @@ int main() {
     printf("%d", bit4 & bit20);
     return 0;
 }
+
 
 

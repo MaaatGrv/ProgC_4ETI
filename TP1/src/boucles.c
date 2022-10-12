@@ -2,12 +2,12 @@
 
 int main()
 {
-    int compteur = 10;
-    if (compteur < 4) //si le compteur est plus petit que 4
+    int compteur = 10; //choix du compteur
+    if (compteur < 4) //condition sur le compteur
     {
         printf(" %d < 4 inacceptable", compteur);
     }
-    else
+    else //si compteur >= 4
     {
         for (int i = 0; i <= compteur; i++)
         {

@@ -1,23 +1,19 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-int main(void)
-{
-    srand(time(NULL));
+int main(){
     int tab[100];
-    int i;
     int max;
     int min;
-    for (i = 0; i < 100; i++)
+    srand(time(NULL));
+    for (int i = 0; i <99; i++)
     {
-        tab[i] = rand() % 100;
-        printf("%d ", tab[i]);
+        tab[i]= rand() % 100;
     }
     max = tab[0];
     min = tab[0];
-    for (i = 0; i < 100; i++)
+    for (int i = 1; i<99; i++)
     {
         if (tab[i] > max)
         {

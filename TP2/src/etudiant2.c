@@ -29,10 +29,8 @@ int main() {
     etudiants[2].notes[0] = 10;
     etudiants[2].notes[1] = 20;
     strcpy(etudiants[3].nom, "Zhang");
+    strcpy(etudiants[3].nom, "Doe");
     strcpy(etudiants[3].prenom, "Jill");
-    strcpy(etudiants[3].adresse, "1234 Main St");
-    etudiants[3].notes[0] = 10;
-    etudiants[3].notes[1] = 20;
     strcpy(etudiants[4].nom, "Ceccaldi");
     strcpy(etudiants[4].prenom, "Jenny");
     strcpy(etudiants[4].adresse, "1234 Main St");
@@ -46,4 +44,5 @@ int main() {
         printf("Deuxieme note : %d \n", etudiants[i].notes[1]);
     }
     return 0;
+
 }
