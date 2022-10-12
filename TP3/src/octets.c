@@ -4,7 +4,7 @@
 
 int main(void)
 {
-    int a = 1893;
+    int a = 1893; // déclaration d'un entier
     short b = 1893;
     float c = 1893.0;
     long int d = 1893;
@@ -17,7 +17,7 @@ int main(void)
     char*u = (char*)&d;
     char*v = (char*)&e;
     char*w = (char*)&f;
-    printf("octets int = %x %x %x %x \n", *(p+3), *(p + 2), *(p + 1), *p);
+    printf("octets int = %x %x %x %x \n", *(p+3), *(p + 2), *(p + 1), *p); // affichage des octets de a en respectant la convention little endian
     printf("octets short = %x %x \n", *(s + 1), *s);
     printf("octets  float= %x %x %x %x \n", *(t + 3), *(t + 2), *(t + 1), *t);
     printf("octets long int = %x %x %x %x \n", *(u + 3), *(u + 2), *(u + 1), *u);

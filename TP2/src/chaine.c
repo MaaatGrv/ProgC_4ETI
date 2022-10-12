@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 int main() {
-    char chaine1[] = "Bonjour les amis";
-    char chaine2[] = ", konishiwa!";
+    char chaine1[] = "Bonjour les amis"; // déclaration d'une chaine de caractères
+    char chaine2[] = ", konishiwa!"; // déclaration d'une chaine de caractères
     
     int i = 0;
     int j = 0;

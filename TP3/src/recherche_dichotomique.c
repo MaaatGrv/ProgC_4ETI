@@ -14,7 +14,7 @@ int main(void)
     {
         tab[i] = rand() % 100;
     }
-    for (i = 0; i < 100; i++) //tableau trié en odre croissant
+    for (i = 0; i < 100; i++) //tableau trié en ordre croissant
     {
         for (j = 0; j < 100; j++)
         {

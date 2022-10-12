@@ -2,20 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct { // structure qui représente un étudiant
     char nom[20];
     char prenom[20];
     char adresse[20];
-    union {
+    union { // union qui représente la note de l'étudiant
         int notes[2];
     };
 } Etudiant;
 
 int main() {
-    Etudiant etudiants[5];
-    strcpy(etudiants[0].nom, "Dupont");
-    strcpy(etudiants[0].prenom, "John");
-    strcpy(etudiants[0].adresse, "1234 Main St");
+    Etudiant etudiants[5]; // déclaration d'un tableau d'étudiants
+    strcpy(etudiants[0].nom, "Dupont"); // affectation du nom de l'étudiant 1
+    strcpy(etudiants[0].prenom, "John"); // affectation du prenom de l'étudiant 1
+    strcpy(etudiants[0].adresse, "1234 Main St"); // affectation de l'adresse de l'étudiant 1
     etudiants[0].notes[0] = 10;
     etudiants[0].notes[1] = 20;
     strcpy(etudiants[1].nom, "Aubert");
@@ -36,7 +36,7 @@ int main() {
     strcpy(etudiants[4].adresse, "1234 Main St");
     etudiants[4].notes[0] = 10;
     etudiants[4].notes[1] = 20;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) { // boucle qui affiche les informations de chaque étudiant
         printf("Nom : %s \n", etudiants[i].nom);
         printf("Prenom : %s \n", etudiants[i].prenom);
         printf("Adresse : %s \n", etudiants[i].adresse);

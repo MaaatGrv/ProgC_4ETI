@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct {
+typedef struct { // structure qui représente une couleur
     unsigned char r;
     unsigned char g;
     unsigned char b;
