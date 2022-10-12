@@ -13,27 +13,27 @@ typedef struct {
 
 int main() {
     Etudiant etudiants[5];
-    strcpy(etudiants[0].nom, "Doe");
+    strcpy(etudiants[0].nom, "Dupont");
     strcpy(etudiants[0].prenom, "John");
     strcpy(etudiants[0].adresse, "1234 Main St");
     etudiants[0].notes[0] = 10;
     etudiants[0].notes[1] = 20;
-    strcpy(etudiants[1].nom, "Doe");
+    strcpy(etudiants[1].nom, "Aubert");
     strcpy(etudiants[1].prenom, "Jane");
     strcpy(etudiants[1].adresse, "1234 Main St");
     etudiants[1].notes[0] = 10;
     etudiants[1].notes[1] = 20;
-    strcpy(etudiants[2].nom, "Doe");
+    strcpy(etudiants[2].nom, "Reynolds");
     strcpy(etudiants[2].prenom, "Jack");
     strcpy(etudiants[2].adresse, "1234 Main St");
     etudiants[2].notes[0] = 10;
     etudiants[2].notes[1] = 20;
-    strcpy(etudiants[3].nom, "Doe");
+    strcpy(etudiants[3].nom, "Zhang");
     strcpy(etudiants[3].prenom, "Jill");
     strcpy(etudiants[3].adresse, "1234 Main St");
     etudiants[3].notes[0] = 10;
     etudiants[3].notes[1] = 20;
-    strcpy(etudiants[4].nom, "Doe");
+    strcpy(etudiants[4].nom, "Ceccaldi");
     strcpy(etudiants[4].prenom, "Jenny");
     strcpy(etudiants[4].adresse, "1234 Main St");
     etudiants[4].notes[0] = 10;

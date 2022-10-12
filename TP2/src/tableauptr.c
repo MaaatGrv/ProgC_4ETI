@@ -1,9 +1,4 @@
-//create 2 tab int and float and fill in with random values
-//For both tables, if the index is divisible by 2, multiply the value at that position by 3.
-//do not use the index notation to browse the tables
-//use the pointer notation to browse the tables
-//display the values of the tables before and after the modification
-//use the printf function to display the values of the tables
+
 
 #include <stdio.h>
 #include <stdlib.h>

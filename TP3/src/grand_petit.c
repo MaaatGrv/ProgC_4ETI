@@ -1,4 +1,3 @@
-//code a tab of 100 random numbers and calculate the highest number and the lowest number
 
 #include <stdio.h>
 #include <stdlib.h>

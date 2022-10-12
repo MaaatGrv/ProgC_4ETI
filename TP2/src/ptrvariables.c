@@ -1,5 +1,3 @@
-/*create a program that assigns and displays the values of variables of different basic types (char, short, int, long int, float, double, long double) using their addresses. The values are converted to hexadecimal and the hexadecimal values are spaced by a space.*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,7 +6,7 @@ int main() {
     short s = 1;
     int i = 2;
     long int li = 3;
-    float f = 4.0;
+    float f = 1;
     double d = 5.0;
     long double ld = 6.0;
     char *pc = &c;

@@ -1,5 +1,3 @@
-//create a tab with 10 colors in format RGBA (red, green, blue, alpha)
-//the colors are initialisate in hexadecimale 
 
 
 #include <stdio.h>

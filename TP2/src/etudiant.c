@@ -1,9 +1,3 @@
-/*Imaginez que vous gérez les notes de cinq étudiant.e.es. En utilisant
-uniquement des tableaux, écrivez un programme *etudiant.c* qui déclare,
-initialise et affiche les détails des cinq étudiant.e.es. Pour chaque
-étudiant.e, on est intéressé par son nom, son prénom, son adresse, et
-ses notes dans 2 modules (Programmation en C, Système d'exploitation) avec une union*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
