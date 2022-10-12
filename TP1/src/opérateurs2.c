@@ -6,33 +6,34 @@ int main()
     int num1 = 16;
     int num2 = 3;
     char op = '+'; //choix de l'opérateur
-    switch (op)
+    switch (op) //choix de l'opérateur
     {
-        case '+':
+    {
+        case '+': //addition
             printf("%d", num1+num2);
             break;
-        case '-':
+        case '-': //soustraction
             printf("%d", num1-num2);
             break;
-        case '*':
+        case '*': //multiplication
             printf("%d", num1*num2);
             break;
-        case '/':
+        case '/': //division
             printf("%d", num1/num2);
             break;
-        case '%':
+        case '%': //modulo
             printf("%d", num1%num2);
             break;
-        case '&':
+        case '&': //et logique
             printf("%d", num1&num2);
             break;
-        case '|':
+        case '|': //ou logique
             printf("%d", num1|num2);
             break;
-        case '~':
+        case '~': //non logique
             printf("%d", ~num1);
             break;
-        default:
+        default: //si l'opérateur n'est pas reconnu
             printf("Error");
             break;
     }
