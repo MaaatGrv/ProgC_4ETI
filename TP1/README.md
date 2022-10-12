@@ -10,6 +10,6 @@
 *Facile
 
 # Commentaires
-* 
+* Les questions sont assez simples et faciles à comprendre
 * 
 
