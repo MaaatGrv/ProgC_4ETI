@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <stdlib.h> 
+#include <time.h> // utilisation de time pour générer les couleurs aléatoirement
 
 typedef struct { // structure qui représente une couleur
     unsigned char r;

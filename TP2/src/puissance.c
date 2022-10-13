@@ -2,7 +2,7 @@
 
 int puissance(int a, int b) { // fonction qui calcule a puissance b
     int i, res = 1;
-    for (i = 0; i < b; i++) {
+    for (i = 0; i < b; i++) { // boucle qui multiplie a par lui-même b fois
         res *= a;
     }
     return res;
