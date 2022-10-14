@@ -2,6 +2,7 @@
 #include "operator.h"
 #include "fichier.h"
 
+
 int operator(int num1, int num2, char op)
 {
     switch (op) //choix de l'opérateur
@@ -80,4 +81,6 @@ int main()
     char op2 = 'w'; //choix de l'opérateur
     fichier(nom_de_fichier, message, op2);
     return 0;
+
+
 }
