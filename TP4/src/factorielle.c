@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 
 int factorielle(int n) {
     if (n == 0) {

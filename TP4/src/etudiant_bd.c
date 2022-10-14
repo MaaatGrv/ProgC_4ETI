@@ -2,60 +2,41 @@
 #include <stdlib.h>
 #include "fichier.h"
 
-typedef struct {
+typedef struct { // structure qui représente un étudiant
     char nom[20];
     char prenom[20];
     char adresse[20];
-    union {
+    union { // union qui représente la note de l'étudiant
         int notes[2];
     };
 } Etudiant;
 
-int fichier(char* nom_de_fichier, char* message, char op)
-{
-    switch (op) //choix de l'opérateur
-    {
-        case 'r': {//lecture
-            lire_fichier(nom_de_fichier);
-            break;
-        }
-        case 'w': {//écriture
-            ecrire_dans_fichier(nom_de_fichier, message);
-            break;
-        }
-        default: {//si l'opérateur n'est pas reconnu
-            printf("Error");
-            break;
-        }
+int main(){
+    Etudiant etudiants[2]; // déclaration d'un tableau d'étudiants
+    char nom_de_fichier[] = "etudiant.txt";
+    // ask for the informations to enter
+    for (int i = 0; i < 2; i++) { // boucle qui affiche les informations de chaque étudiant
+        char nom[20];
+        char prenom[20];
+        char adresse[20];
+        int note1;
+        int note2;
+        char message[100];
+        printf("Nom: ");
+        scanf("%s", nom);
+        printf("Prenom: ");
+        scanf("%s", prenom);
+        printf("Adresse: ");
+        scanf("%s", adresse);
+        printf("Premiere note: ");
+        scanf("%d", &note1);
+        printf("Deuxieme note: ");
+        scanf("%d", &note2);
+        
+        //write the informations in the mmessage
+        sprintf(message, "Nom : %s \nPrénom : %s \nAdresse : %s \nNote 1 : %d \nNote 2 : %d \n \n", nom, prenom, adresse, note1, note2);
+        //write the message in the file
+        ecrire_dans_fichier(nom_de_fichier, message);
     }
     return 0;
 }
-
-
-int main() {
-    Etudiant etudiants[5];
-
-    for (int i = 0; i < 5; i++) {
-        printf("Nom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].nom);
-        printf("Prénom de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].prenom);
-        printf("Adresse de l'étudiant %d: \n", i + 1);
-        scanf("%s", etudiants[i].adresse);
-        printf("Note de Programmation en C de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[0]);
-        printf("Note de Système d'exploitation de l'étudiant %d: \n", i + 1);
-        scanf("%d", &etudiants[i].notes[1]);
-
-    }
-    // Manipulation de fichiers
-    char nom_de_fichier[] = "test.txt";
-    char message[] = "Hello World!";
-    char op2 = 'w'; //choix de l'opérateur
-    fichier(nom_de_fichier, message, op2);
-    return 0;
-
-}
-
-
-
