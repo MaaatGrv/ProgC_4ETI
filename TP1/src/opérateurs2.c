@@ -8,7 +8,6 @@ int main()
     char op = '+'; //choix de l'opérateur
     switch (op) //choix de l'opérateur
     {
-    {
         case '+': //addition
             printf("%d", num1+num2);
             break;
