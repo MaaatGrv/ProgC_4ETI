@@ -76,7 +76,7 @@ int main()
 
     // Manipulation de fichiers
     char nom_de_fichier[] = "test.txt";
-    char message[] = "Coucou! ";
+    char message[] = "Bonjour!Coucou!Coucou!Coucou!Coucou!Coucou!Coucou! \n";
     char op2 = 'w'; //choix de l'opérateur
     fichier(nom_de_fichier, message, op2);
     return 0;

@@ -1,0 +1,12 @@
+Nom : aa 
+ Prénom : aa 
+ Adresse : aa 
+ Note 1 : 1 
+ Note 2 : 1 
+ 
+Nom : bb 
+ Prénom : bb 
+ Adresse : bb 
+ Note 1 : 2 
+ Note 2 : 2 
+ 

@@ -20,7 +20,7 @@ int lire_fichier(char* nom_de_fichier){
 
 int ecrire_dans_fichier(char* nom_de_fichier, char* message){
     FILE *fichier = NULL;
-    fichier = fopen(nom_de_fichier, "w");
+    fichier = fopen(nom_de_fichier, "a");
     if (fichier != NULL){
         // ecrire le message dans le fichier
         fputs(message, fichier);
