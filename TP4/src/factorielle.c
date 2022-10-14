@@ -10,7 +10,7 @@ int factorielle(int n) {
 }
 
 int main() {
-    int n= 6 ;
+    int n= 5;
     printf("Factorielle de %d: %d \n", n, factorielle(n));
     return 0;
 }
