@@ -14,3 +14,4 @@ int main() {
     printf("Factorielle de %d: %d \n", n, factorielle(n));
     return 0;
 }
+
