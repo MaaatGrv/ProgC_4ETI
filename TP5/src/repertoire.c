@@ -28,7 +28,6 @@ void lire_dossier(char *nom_dossier)
 
 // Implémenter la même fonction de manière récursive
 // pour afficher le contenu d'un répertoire et de tous ses sous-répertoires.
-
 void lire_dossier_recursif(char *nom_dossier)
 {
     DIR *dossier;
@@ -60,6 +59,40 @@ void lire_dossier_recursif(char *nom_dossier)
     closedir(dossier);
 }
 
+// Implémenter la même fonction de manière itérative
+// pour afficher le contenu d'un répertoire et de tous ses sous-répertoires.
+// on utilisera des for ou des while sans récursivité
+
+void lire_dossier_iteratif(char *nom_fichier)
+{
+    DIR *dossier;
+    struct dirent *fichier;
+    dossier = opendir(nom_fichier);
+    if (dossier == NULL)
+    {
+        printf("Impossible d'ouvrir le dossier %s !\n", nom_fichier);
+        exit(1);
+    }
+    while ((fichier = readdir(dossier)) != NULL)
+    {
+        printf("%s \n", fichier->d_name);
+        if (fichier->d_type == DT_DIR)
+        {
+            if (strcmp(fichier->d_name, ".") != 0 && strcmp(fichier->d_name, "..") != 0)
+            {
+                char *chemin = malloc(strlen(nom_fichier) + strlen(fichier->d_name) + 2);
+                strcpy(chemin, nom_fichier);
+                strcat(chemin, "/");
+                strcat(chemin, fichier->d_name);
+                lire_dossier_iteratif(chemin);
+                free(chemin);
+            }
+        }
+    }
+    printf("\n");
+    closedir(dossier);
+}
+
 int main(int argc, char *argv[])
 {
     if (argc != 2)
@@ -67,6 +100,6 @@ int main(int argc, char *argv[])
         printf("Usage: %s <nom_dossier>\n", argv[0]);
         exit(1);
     }
-    lire_dossier_recursif(argv[1]);
+    lire_dossier(argv[1]);
     return 0;
 }
