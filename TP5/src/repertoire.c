@@ -1,7 +1,9 @@
 /*
 Afficher le répertoire saisi par l'utilisateur et les fichiers qui s'y trouvent 
 */
-
+#include "repertoire.h"
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,7 +61,7 @@ void lire_dossier_recursif(char *nom_dossier)
     printf("\n");
     closedir(dossier);
 }
-//Implémenter la même fonction de manière intératif
+//Implémenter la même fonction de manière itératif
 //Affiche tous les noms de des fichiers, des répertoires, des sous-répertoires et des fichiers dans les sous-répertoires
 // Utiliser for (ou while ou do while) pour implémenter cette fonction
 struct dossier{
@@ -67,57 +69,40 @@ struct dossier{
 	DIR* chemin; 
 };
 
-void lire_dossier_interatif(char*rep){
+void lire_dossier_iteratif(char *nom_fichier){
 	int i=0;
 	struct dossier dossiers[1024];
-	strcpy(dossiers[0].nom_rep,rep);	
+    dossiers[i].chemin = opendir(nom_fichier);
 	int j=1;
 //parcourir le tableau
-	while(i<j){ 
-		dossiers[i].chemin = opendir(dossiers[i].nom_rep);
-		if(dossiers[i].chemin == NULL){
-			break;
-		}
-		struct dirent * lecture;
-		chdir(dossiers[i].nom_rep); 
-		while(1){
-			lecture = readdir(dossiers[i].chemin);
-			if (lecture == NULL){
-				break;
-			};
-			char* file_name = lecture->d_name;
-			printf ("%s ", file_name);
-
-
-			;
-			if(lecture->d_type && strcmp(".",file_name) && strcmp("..",file_name)){ 
-				strcpy(dossiers[j].nom_rep,file_name);
-				dossiers[j].chemin = opendir(file_name);
-				j=j+1;
-				if(dossiers[j].chemin == NULL){
-
-				}
-			}
-		}
-		i=i+3;
-		putchar('\n');
-		putchar('\n');
-	}
+    while (i<j){
+        struct dirent *fichier;
+        while ((fichier = readdir(dossiers[i].chemin)) != NULL){
+            printf("%s \n", fichier->d_name);
+            if (fichier->d_type == DT_DIR){
+                if (strcmp(fichier->d_name, ".") != 0 && strcmp(fichier->d_name, "..") != 0){
+                    char *chemin = malloc(strlen(nom_fichier) + strlen(fichier->d_name) + 3);
+                    strcpy(chemin, nom_fichier);
+                    strcat(chemin, "/");
+                    strcat(chemin, fichier->d_name);
+                    dossiers[j].chemin = opendir(chemin);
+                    j++;
+                    free(chemin);
+                }
+            }
+        }
+        i++;
+    }
 }
 
 
-
-
-
-
-
-int main() {
-
-  char repertoire[100];
-  printf ("nom du répertoire : ");
-  scanf ("%s",repertoire);
-  lire_dossier(repertoire);
-  putchar('\n');
-  return 0;
-  
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: %s <nom_dossier>\n", argv[0]);
+        exit(1);
+    }
+    lire_dossier_iteratif(argv[1]);
+    return 0;
 }
