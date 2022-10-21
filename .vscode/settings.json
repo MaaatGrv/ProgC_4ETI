@@ -3,6 +3,7 @@
         "stdlib.h": "c",
         "string.h": "c",
         "__config": "c",
-        "cstdio": "c"
+        "cstdio": "c",
+        "dirent.h": "c"
     }
 }
