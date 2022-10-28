@@ -15,5 +15,7 @@
  * en retour
  */
 int recois_envoie_message(int socketfd);
+char *JsonToString(char *data);
+char *StringToJSON(char *data);
 
 #endif
