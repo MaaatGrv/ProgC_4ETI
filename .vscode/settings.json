@@ -4,6 +4,7 @@
         "string.h": "c",
         "__config": "c",
         "cstdio": "c",
-        "dirent.h": "c"
+        "dirent.h": "c",
+        "cstring": "c"
     }
 }
