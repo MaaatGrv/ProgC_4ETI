@@ -107,7 +107,7 @@ int recois_envoie_message(int socketfd)
 
   // Verif Json
   if (strchr(data, '{') != NULL & strchr(data, '}') != NULL){
-    strcpy(data,JsonToString(data));
+    strcpy(data, JsonToString(data));
   }
 
   /*
