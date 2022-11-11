@@ -153,7 +153,7 @@ int recois_envoie_message(int socketfd)
     }
     // Convertir le résultat en chaine de caractères
     memset(data, 0, sizeof(data));
-    strcpy(data, 0, "calcule:");
+    strcpy(data, "calcule:");
     char strResult[100];
     sprintf(strResult, "%d", result);
 
