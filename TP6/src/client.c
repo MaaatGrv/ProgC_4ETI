@@ -158,7 +158,7 @@ char *JsonToString(char *data){
   int TypeOfTransmission = 0;
   char *RetString = malloc(sizeof(char)*sizeOfData);
   char Mot[100] = {};
-  int indexBuffer = 0;
+  int indexBuff = 0;
   for(int i = 0; i<sizeOfData; i++){
     if (data[i] == '\"'){
       if (indexBuff == 0){
