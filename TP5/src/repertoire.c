@@ -1,7 +1,3 @@
-/*
-Afficher le répertoire saisi par l'utilisateur et les fichiers qui s'y trouvent 
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,23 +22,22 @@ void lire_dossier(char *nom_dossier)
     closedir(dossier);
 }
 
-// Implémenter la même fonction de manière récursive
-// pour afficher le contenu d'un répertoire et de tous ses sous-répertoires.
-void lire_dossier_recursif(char *nom_dossier)
+
+void lire_dossier_recursif(char *nom_dossier) // Fonction récursive
 {
     DIR *dossier;
     struct dirent *fichier;
     dossier = opendir(nom_dossier);
 
-    if (dossier == NULL)
+    if (dossier == NULL) // si le dossier n'existe pas
     {
         printf("Impossible d'ouvrir le dossier %s !\n", nom_dossier);
         exit(1);
     }
     while ((fichier = readdir(dossier)) != NULL)
     {
-        printf("%s \n", fichier->d_name);
-        if (fichier->d_type == DT_DIR)
+        printf("%s \n", fichier->d_name); // affiche le nom du fichier
+        if (fichier->d_type == DT_DIR) // si le fichier est un dossier
         {
             if (strcmp(fichier->d_name, ".") != 0 && strcmp(fichier->d_name, "..") != 0)
             {
@@ -59,11 +54,8 @@ void lire_dossier_recursif(char *nom_dossier)
     closedir(dossier);
 }
 
-// Implémenter la même fonction de manière itérative
-// pour afficher le contenu d'un répertoire et de tous ses sous-répertoires.
-// on utilisera des for ou des while sans récursivité
 
-void lire_dossier_iteratif(char *nom_fichier)
+void lire_dossier_iteratif(char *nom_fichier) // Fonction itérative
 {
     DIR *dossier;
     struct dirent *fichier;
@@ -73,7 +65,7 @@ void lire_dossier_iteratif(char *nom_fichier)
         printf("Impossible d'ouvrir le dossier %s !\n", nom_fichier);
         exit(1);
     }
-    while ((fichier = readdir(dossier)) != NULL)
+    while ((fichier = readdir(dossier)) != NULL) //On lit le fichier
     {
         printf("%s \n", fichier->d_name);
         if (fichier->d_type == DT_DIR)

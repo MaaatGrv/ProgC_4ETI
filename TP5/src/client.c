@@ -15,12 +15,8 @@
 
 #include "client.h"
 
-/*
- * Fonction d'envoi et de réception de messages
- * Il faut un argument : l'identifiant de la socket
- */
 
-int envoie_recois_message(int socketfd)
+int envoie_recois_message(int socketfd) // Fonction d'envoi et de réception de messages
 {
 
   char data[1024];
@@ -99,10 +95,8 @@ int main()
 
   struct sockaddr_in server_addr;
 
-  /*
-   * Creation d'une socket
-   */
-  socketfd = socket(AF_INET, SOCK_STREAM, 0);
+
+  socketfd = socket(AF_INET, SOCK_STREAM, 0); // Création de la socket
   if (socketfd < 0)
   {
     perror("socket");

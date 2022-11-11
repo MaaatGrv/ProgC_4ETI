@@ -16,8 +16,7 @@
 
 #include "serveur.h"
 
-/* renvoyer un message (*data) au client (client_socket_fd)
- */
+
 int renvoie_message(int client_socket_fd, char *data)
 {
   int data_size = write(client_socket_fd, (void *)data, strlen(data));
@@ -30,10 +29,7 @@ int renvoie_message(int client_socket_fd, char *data)
   return (EXIT_SUCCESS);
 }
 
-/* accepter la nouvelle connection d'un client et lire les données
- * envoyées par le client. En suite, le serveur envoie un message
- * en retour
- */
+
 int recois_envoie_message(int socketfd)
 {
   struct sockaddr_in client_addr;
@@ -61,10 +57,7 @@ int recois_envoie_message(int socketfd)
     return (EXIT_FAILURE);
   }
 
-  /*
-   * extraire le code des données envoyées par le client.
-   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
-   */
+
   printf ("Message recu: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
@@ -111,10 +104,7 @@ int recois_numeros_calcule(int socketfd) {
     return(EXIT_FAILURE);
   }
   
-  /*
-   * extraire le code des données envoyées par le client. 
-   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
-   */
+
   printf ("Message recu: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
@@ -163,9 +153,7 @@ int main()
 
   struct sockaddr_in server_addr;
 
-  /*
-   * Creation d'une socket
-   */
+//Creation d'une socket
   socketfd = socket(AF_INET, SOCK_STREAM, 0);
   if (socketfd < 0)
   {

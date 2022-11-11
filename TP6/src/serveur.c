@@ -342,7 +342,7 @@ int main()
   int bind_status;
   int client_addr_len;
 
-  struct sockaddr_in server_addr server_addr, client_addr;
+  struct sockaddr_in server_addr, client_addr;
 
   /*
    * Creation d'une socket
