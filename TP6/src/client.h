@@ -18,5 +18,8 @@
  * Il faut un argument : l'identifiant de la socket
  */
 int envoie_recois_message(int socketfd);
+int envoie_operation(int socketfd);
+char *JsonToString(char *data);
+char *StringToJson(char *data);
 
 #endif

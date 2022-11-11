@@ -1,36 +1,38 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-
-
-int main() {
-    //création du tableau
-    int tab[100];
+int main(void)
+{
     srand(time(NULL));
-    for (int i = 0; i <99; i++)
-    {
-        tab[i]= rand() % 100;
-    }
-    //trier le tableau dans l'ordre croissant
+    int tab[100]; // déclaration d'un tableau de 100 entiers
+    int i;
+    int j;
     int temp;
-    for (int i = 0; i < 99; i++)
+    for (i = 0; i < 100; i++)
     {
-        for (int j = i + 1; j < 99; j++)
+        tab[i] = rand() % 100; // génération d'une valeur aléatoire pour le tableau tab
+        printf("%d ", tab[i]); // affichage de la valeur du tableau
+    }
+    for (i = 0; i < 100; i++)
+    {
+        for (j = 0; j < 100; j++)
         {
-            if (tab[i] > tab[j])
+            if (tab[i] < tab[j]) // si la valeur du tableau est inférieure à la valeur du tableau
             {
-                temp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = temp;
+                temp = tab[i]; // temp prend la valeur du tableau
+                tab[i] = tab[j]; // la valeur du tableau prend la valeur du tableau
+                tab[j] = temp; // la valeur du tableau prend la valeur de temp
             }
+
         }
     }
-    //afficher le tableau
-    for (int i = 0; i < 99; i++)
+    printf(" sorted = "); 
+    for (i = 0; i < 100; i++)
     {
-        printf("%d ", tab[i]);
-    }
-    printf("\nmax = %d, min = %d", tab[99], tab[0]); 
+        printf("%d ", tab[i]); // affichage de la valeur du tableau trié
+    } 
     return 0;
 }

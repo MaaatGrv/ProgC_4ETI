@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "string.h": "c",
+        "__config": "c",
+        "cstdio": "c",
+        "dirent.h": "c",
+        "cstring": "c"
+    }
+}

@@ -1,7 +1,6 @@
 # Bibliothèques
 * stdio.h
 
-
 # Références
 *groupe D
 *https://github.com/johnsamuelwrites/ProgC
@@ -10,6 +9,6 @@
 *Facile
 
 # Commentaires
-* 
+* Les questions sont assez simples et faciles à comprendre
 * 
 

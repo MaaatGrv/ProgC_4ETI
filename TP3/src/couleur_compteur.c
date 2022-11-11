@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct {
+typedef struct { // structure qui représente une couleur
     unsigned char r;
     unsigned char g;
     unsigned char b;
     unsigned char a;
 } Couleur;
 
-typedef struct {
+typedef struct { // structure qui représente une couleur et son nombre d'occurence
     unsigned char r;
     unsigned char g;
     unsigned char b;
@@ -20,10 +20,11 @@ typedef struct {
 int main(){
     int toskip[100];
     srand(time(NULL));
-    Couleur couleurs[100];
+    // Attribution des tableaux
+    Couleur couleurs[100]; 
     CouleurCount couleursCount[100];
 
-    // Création des couleurs
+    // Création des couleurs de manière aléatoire
     for (int i = 0; i < 99; i++) {
         couleurs[i].r = rand() % 3;
         couleurs[i].g = rand() % 3;

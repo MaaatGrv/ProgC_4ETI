@@ -2,36 +2,55 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main() {
-    //création du tableau
-    int tab[100];
+int main(void)
+{
     srand(time(NULL));
-    for (int i = 0; i <99; i++)
-    {
-        tab[i]= rand() % 100;
-    }
-    //trier le tableau dans l'ordre croissant
+    int tab[100];
+    int i;
+    int j;
     int temp;
-    for (int i = 0; i < 99; i++)
+    int entier;
+    for (i = 0; i < 100; i++) // création du tableau de 100 entiers aléatoires
     {
-        for (int j = i + 1; j < 99; j++)
+        tab[i] = rand() % 100;
+    }
+    for (i = 0; i < 100; i++) // Le tableau est trié dans l'ordre croissant
+    {
+        for (j = 0; j < 100; j++) 
         {
-            if (tab[i] > tab[j])
+            if (tab[i] < tab[j])
             {
-                temp = tab[i];
+                temp = tab[i]; // variable temporaire pour stocker la valeur de tab[i]
                 tab[i] = tab[j];
                 tab[j] = temp;
             }
         }
     }
 
-    //recherche dichotomique
-    int entier;
+    printf(" sorted = "); 
+    for (i = 0; i < 100; i++)
+    {
+        printf("%d ", tab[i]); // Affichage du tableau trié
+    } 
+
+    // on cherche un entier par dichotomie
     printf(" entier = ");
-    scanf("%d", &entier);
+    scanf("%d", &entier); // lecture de l'entier à chercher
     int min = 0;
     int max = sizeof(tab)/sizeof(tab[0]); //on divise la taille totale du tableau par la taille de l’élément du tableau pour obtenir le nombre d’éléments du tableau
-    int milieu = (min + max) / 2;
+    int milieu = (min + max) / 2; // on calcule le milieu du tableau
+    
+    /*
+    tant que l'entier n'est pas trouvé et que le tableau n'est pas vide
+    on cherche l'entier dans la partie du tableau où il peut se trouver
+    on réduit la taille du tableau à chaque itération
+    on calcule le milieu du tableau
+    on compare l'entier à chercher avec l'entier du milieu du tableau
+    si l'entier est inférieur à l'entier du milieu du tableau
+    on cherche l'entier dans la partie gauche du tableau
+    sinon on cherche l'entier dans la partie droite du tableau
+    */
+
     while (tab[milieu] != entier && min < max)
     {
         if (tab[milieu] < entier)
@@ -50,3 +69,4 @@ int main() {
     }
     return 0;
 }
+

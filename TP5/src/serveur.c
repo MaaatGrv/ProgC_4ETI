@@ -65,19 +65,94 @@ int recois_envoie_message(int socketfd)
    * extraire le code des données envoyées par le client.
    * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
    */
-  printf("Message recu: %s\n", data);
+  printf ("Message recu: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
 
-  // Si le message commence par le mot: 'message:'
-  if (strcmp(code, "message:") == 0)
-  {
+  //Si le message commence par le mot: 'message:' 
+  if (strcmp(code, "message:") == 0) {
+    char DataToClient[1024];
+    memset(DataToClient, 0, sizeof(DataToClient));
+    char message[100];
+    printf("Votre message (max 1000 caracteres): ");
+    fgets(message, 1024, stdin);
+    strcpy(data, "message: ");
+    strcat(data, message);
+	//
     renvoie_message(client_socket_fd, data);
   }
 
-  // fermer le socket
+  //fermer le socket 
   close(socketfd);
-  return (EXIT_SUCCESS);
+
+}
+
+int recois_numeros_calcule(int socketfd) {
+  struct sockaddr_in client_addr;
+  char data[1024];
+
+  int client_addr_len = sizeof(client_addr);
+ 
+  // nouvelle connection de client
+  int client_socket_fd = accept(socketfd, (struct sockaddr *) &client_addr, &client_addr_len);
+  if (client_socket_fd < 0 ) {
+    perror("accept");
+    return(EXIT_FAILURE);
+  }
+
+  // la réinitialisation de l'ensemble des données
+  memset(data, 0, sizeof(data));
+
+  //lecture de données envoyées par un client
+  int data_size = read (client_socket_fd, (void *) data, sizeof(data));
+      
+  if (data_size < 0) {
+    perror("erreur lecture");
+    return(EXIT_FAILURE);
+  }
+  
+  /*
+   * extraire le code des données envoyées par le client. 
+   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
+   */
+  printf ("Message recu: %s\n", data);
+  char code[10];
+  sscanf(data, "%s:", code);
+
+  //Si le message commence par le mot: 'message:' 
+  if (strcmp(code, "calcule:") == 0) {
+    char op = ' ';
+    int num1; int num2; int result;
+    sscanf(data,"%*s %c %d %d",&op, &num1, &num2);
+    switch(op){
+		// +
+		case '+' : result = num1 + num2;
+		break;
+		// -
+		case '-' : result = num1 - num2;
+		break;
+		// *
+		case '*' : result = num1 * num2;
+		break;
+		// /
+		case '/' : result = num1/num2;
+		break;
+		// %
+		case '%' : result = num1 % num2;
+		break;
+		// &
+		case '&' : result = num1 & num2;
+		break;
+		// |
+		case '|' : result = num1 | num2;
+		break;
+		default: result = -1;
+    }
+    sprintf(data, "%d", result);
+    renvoie_message(client_socket_fd, data);
+  }
+  //fermer le socket 
+  close(socketfd);
 }
 
 int main()
@@ -119,7 +194,11 @@ int main()
   listen(socketfd, 10);
 
   // Lire et répondre au client
-  recois_envoie_message(socketfd);
+  //recois_envoie_message(socketfd);
+
+  // fct calcul au serveur
+  recois_numeros_calcule(socketfd);
+
 
   return 0;
 }

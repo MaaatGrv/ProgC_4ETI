@@ -35,6 +35,8 @@ int envoie_recois_message(int socketfd)
   strcpy(data, "message: ");
   strcat(data, message);
 
+  strcpy(data,StringToJson(data));
+
   int write_status = write(socketfd, data, strlen(data));
   if (write_status < 0)
   {
@@ -53,6 +55,45 @@ int envoie_recois_message(int socketfd)
     return -1;
   }
 
+  strcpy(data,JsonToString(data));
+
+  printf("Message recu: %s\n", data);
+
+  return 0;
+}
+
+int envoie_operation(int socketfd)
+{
+  char data[1024];
+  // la réinitialisation de l'ensemble des données
+  memset(data, 0, sizeof(data));
+
+  // Demandez à l'utilisateur d'entrer un message
+  char message[100];
+  printf("Votre calcul {op} {num1} {num2} (max 100 caracteres): ");
+  fgets(message, 1024, stdin);
+  strcpy(data, "calcule: ");
+  strcat(data, message);
+
+  int write_status = write(socketfd, data, strlen(data));
+  if (write_status < 0)
+  {
+    perror("erreur ecriture");
+    exit(EXIT_FAILURE);
+  }
+
+  // la réinitialisation de l'ensemble des données
+  memset(data, 0, sizeof(data));
+
+  // lire les données de la socket
+  int read_status = read(socketfd, data, sizeof(data));
+  if (read_status < 0)
+  {
+    perror("erreur lecture");
+    return -1;
+  }
+
+  strcpy(data,JsonToString(data));
   printf("Message recu: %s\n", data);
 
   return 0;
@@ -63,25 +104,27 @@ void analyse(char *pathname, char *data)
   // compte de couleurs
   couleur_compteur *cc = analyse_bmp_image(pathname);
 
+  int nombre = 0;
+  while ((0<nombre && nombre<=30) == 0){
+    printf("Nombre de couleur (entre 1 et 30) : \n");
+    scanf("%d", &nombre);
+  }
   int count;
   strcpy(data, "couleurs: ");
-  char temp_string[10] = "10,";
-  if (cc->size < 10)
-  {
+  char temp_string[10];
+  sprintf(temp_string, "%d,", nombre);
+  if (cc->size < 30) {
     sprintf(temp_string, "%d,", cc->size);
   }
   strcat(data, temp_string);
-
-  // choisir 10 couleurs
-  for (count = 1; count < 11 && cc->size - count > 0; count++)
-  {
-    if (cc->compte_bit == BITS32)
-    {
-      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc24[cc->size - count].c.rouge, cc->cc.cc32[cc->size - count].c.vert, cc->cc.cc32[cc->size - count].c.bleu);
+  
+  //choisir 30 couleurs
+  for (count = 1; count < nombre+1 && cc->size - count >0; count++) {
+    if(cc->compte_bit ==  BITS32) {
+      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc24[cc->size-count].c.rouge,cc->cc.cc32[cc->size-count].c.vert,cc->cc.cc32[cc->size-count].c.bleu);
     }
-    if (cc->compte_bit == BITS24)
-    {
-      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc32[cc->size - count].c.rouge, cc->cc.cc32[cc->size - count].c.vert, cc->cc.cc32[cc->size - count].c.bleu);
+    if(cc->compte_bit ==  BITS24) {
+      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc32[cc->size-count].c.rouge,cc->cc.cc32[cc->size-count].c.vert,cc->cc.cc32[cc->size-count].c.bleu);
     }
     strcat(data, temp_string);
   }
@@ -96,6 +139,8 @@ int envoie_couleurs(int socketfd, char *pathname)
   memset(data, 0, sizeof(data));
   analyse(pathname, data);
 
+  strcpy(data,StringToJson(data));
+
   int write_status = write(socketfd, data, strlen(data));
   if (write_status < 0)
   {
@@ -106,12 +151,174 @@ int envoie_couleurs(int socketfd, char *pathname)
   return 0;
 }
 
+char *JsonToString(char *data){
+  int sizeOfData = strlen(data);
+  int WriteEverything = 0;
+  int FirstColor = 0;
+  int TypeOfTransmission;
+  char *RetString = malloc(sizeof(char)*1024);
+  char Mot[100] = {};
+  int indexBuff = 0;
+  for(int i = 0; i<sizeOfData; i++){
+    if (data[i] == '\"'){
+      if (indexBuff == 0){
+	      indexBuff=i;
+      }
+      else{
+        for(int j = 0; j<i-indexBuff-1; j++){
+          Mot[j] = data[j + indexBuff + 1];
+        }
+        indexBuff = 0;
+	//printf("%s\n",Mot);
+	if (strcmp(Mot,"message") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 1;
+	}
+	else if(strcmp(Mot,"calcule") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 2;
+	}
+	else if(strcmp(Mot,"couleurs") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 3;
+	}
+	else if(strcmp(Mot,"valeurs") == 0){
+		WriteEverything = 1;
+	}
+	else if(WriteEverything == 1){
+		//signe précédent
+		if (TypeOfTransmission == 3){
+			if (FirstColor == 0){
+				FirstColor = 1;
+			}
+			else{
+				strcat(RetString,",#");
+			}
+		}	
+		strcat(RetString,Mot);
+		//séparateur
+		if (TypeOfTransmission == 2){
+		strcat(RetString," ");
+		}
+	}
+	memset(Mot, 0, sizeof(Mot));
+      }
+    }
+  }
+  //printf("%s\n",RetString);
+  return RetString;
+}
+
+char *StringToJson(char *data){
+	int sizeOfData = strlen(data);
+	char *RetString = malloc(sizeof(char)*1024);
+	int TypeOfTransmission;
+	int WriteEverything = 0;
+	char Mot[1024] = {};
+	int indexBuff = 0;
+	int firstColor = 0;
+	strcat(RetString, "{\"code\" : \"");
+	for(int i = 0; i<sizeOfData; i++){
+    		if (data[i] == ':'){
+        		for(int j = 0; j<i; j++){
+         			Mot[j] = data[j];
+			}
+			//printf("%s\n",Mot);
+			strcat(RetString,Mot);
+			strcat(RetString, "\",\"valeurs\" : [\"");
+			if (strcmp(Mot,"message") == 0){
+				TypeOfTransmission = 1;
+			}
+			else if(strcmp(Mot,"calcule") == 0){
+				TypeOfTransmission = 2;
+			}
+			else if(strcmp(Mot,"couleurs") == 0){
+				TypeOfTransmission = 3;
+			}
+			memset(Mot, 0, sizeof(Mot));
+		}
+		switch(TypeOfTransmission){
+			case 1:
+				if (WriteEverything == 1){
+					char cToStr[2];
+					cToStr[1] = '\0';
+					cToStr[0] = data[i];
+					strcat(RetString, cToStr);
+				}
+				if ((data[i] ==  ' ') && (data[i-1] == ':')){
+					WriteEverything = 1;
+				}
+				break;
+			case 2:
+				if (data[i] == ' ' || i == sizeOfData-1){
+					if (i == sizeOfData-1){
+						i++;
+					}
+					if (indexBuff == 0 || indexBuff == 7){
+						indexBuff = i+1;
+					}
+					else{
+						for(int j = 0; j<i-indexBuff; j++){
+			 				Mot[j] = data[indexBuff+j];
+						}
+						strcat(RetString,Mot);
+						if (i != sizeOfData){
+							strcat(RetString,"\",\"");
+						}
+						indexBuff = i+1;
+						memset(Mot, 0, sizeof(Mot));
+					}
+				}
+				
+			break;
+			case 3:
+				if (data[i] == ' '){
+					indexBuff = i+1;
+				}
+				else if (data[i] == ',' && indexBuff !=0){
+					for(int j = 0; j<i-indexBuff; j++){
+			 			Mot[j] = data[indexBuff+j];
+					}
+					strcat(RetString,Mot);
+					strcat(RetString,"\",\"");
+					memset(Mot, 0, sizeof(Mot));
+				}
+				else if (data[i] == '#'){
+					indexBuff = i+1;
+					firstColor = 1;
+				}
+				else if ((data[i] == ',' || i == sizeOfData-1) && firstColor == 1){
+					if (i == sizeOfData-1){
+						i++;
+					}
+					for(int j = 0; j<i-indexBuff; j++){
+			 				Mot[j] = data[indexBuff+j];
+						}
+						strcat(RetString,Mot);
+						if (i != sizeOfData){
+							strcat(RetString,"\",\"");
+						}
+						indexBuff = i+1;
+						memset(Mot, 0, sizeof(Mot));
+				}
+		}
+		
+	}
+	strcat(RetString, "\"]}");
+	//printf("%s\n",RetString);
+	return RetString;	
+}
+
 int main(int argc, char **argv)
 {
   int socketfd;
+  int bind_status;
 
-  struct sockaddr_in server_addr;
-
+  struct sockaddr_in server_addr, client_addr;
+  
   if (argc < 2)
   {
     printf("usage: ./client chemin_bmp_image\n");
@@ -141,16 +348,25 @@ int main(int argc, char **argv)
     perror("connection serveur");
     exit(EXIT_FAILURE);
   }
-  if (argc != 2)
-  {
-    // envoyer et recevoir un message
-    envoie_recois_message(socketfd);
-  }
-  else
-  {
-    // envoyer et recevoir les couleurs prédominantes
-    // d'une image au format BMP (argv[1])
-    envoie_couleurs(socketfd, argv[1]);
+
+  int valid = 0;
+  while (valid == 0) {
+    printf("Choisissez une fonction : message, calcule ou couleurs\n");
+    char input[16];
+    fgets(input, 15, stdin);
+    if (strcmp(input, "message") == 10){
+      envoie_recois_message(socketfd);
+      valid = 1;
+    }
+    else if (strcmp(input, "calcule") == 10){
+      envoie_operateur_numeros(socketfd);
+      valid = 1;
+    }
+    else if (strcmp(input, "couleurs") == 10){
+      printf("Le chemin doit être renseigné lors du lancement du programme (ex : \"./client ./images/800px-2006-10-18Dahlia03m.bmp\"\n");
+      envoie_couleurs(socketfd, argv[1]);
+      valid = 1;
+    }
   }
 
   close(socketfd);
