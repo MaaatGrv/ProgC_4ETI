@@ -155,8 +155,8 @@ char *JsonToString(char *data){
   int sizeOfData = strlen(data);
   int WriteEverything = 0;
   int FirstColor = 0;
-  int TypeOfTransmission = 0;
-  char *RetString = malloc(sizeof(char)*sizeOfData);
+  int TypeOfTransmission;
+  char *RetString = malloc(sizeof(char)*1024);
   char Mot[100] = {};
   int indexBuff = 0;
   for(int i = 0; i<sizeOfData; i++){
@@ -212,7 +212,7 @@ char *JsonToString(char *data){
   return RetString;
 }
 
-char *StringToJson(char *data){
+char *StringToJSON(char *data){
 	int sizeOfData = strlen(data);
 	char *RetString = malloc(sizeof(char)*1024);
 	int TypeOfTransmission;
