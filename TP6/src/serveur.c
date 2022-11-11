@@ -134,29 +134,22 @@ int recois_envoie_message(int socketfd)
     char op = ' ';
     int num1, num2, result;
     sscanf(data, "%*s %d %c %d", &num1, &op, &num2);
-    switcg(op){
-      // +
-      case '+' : result = num1 + num2;
-      break;
-      // -
-      case '-' : result = num1 - num2;
-      break;
-      // *
-      case '*' : result = num1 * num2;
-      break;
-      // /
-      case '/' : result = num1 / num2;
-      break;
-      // %
-      case '%' : result = num1 % num2;
-      break;
-      // &
-      case '&' : result = num1 & num2;
-      break;
-      // |
-      case '|' : result = num1 | num2;
-      break;
-      default: result = -1;
+    switch(op){
+      case '+':
+        result = num1 + num2;
+        break;
+      case '-':
+        result = num1 - num2;
+        break;
+      case '*':
+        result = num1 * num2;
+        break;
+      case '/':
+        result = num1 / num2;
+        break;
+      default:
+        result = 0;
+        break;
     }
     // Convertir le résultat en chaine de caractères
     memset(data, 0, sizeof(data));
