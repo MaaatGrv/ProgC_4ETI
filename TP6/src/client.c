@@ -355,7 +355,7 @@ int main(int argc, char **argv)
     char input[16];
     fgets(input, 15, stdin);
     if (strcmp(input, "message") == 10){
-      envoie_recois_message(socketfd);
+      envoie_operation(socketfd);
       valid = 1;
     }
     else if (strcmp(input, "calcule") == 10){
