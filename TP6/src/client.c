@@ -359,7 +359,7 @@ int main(int argc, char **argv)
       valid = 1;
     }
     else if (strcmp(input, "calcule") == 10){
-      envoie_operateur_numeros(socketfd);
+      envoie_operation(socketfd);
       valid = 1;
     }
     else if (strcmp(input, "couleurs") == 10){
