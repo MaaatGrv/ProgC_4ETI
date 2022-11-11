@@ -18,11 +18,17 @@
 
 void plot(char *data)
 {
-
+  char NbCouleur[8];
+  for(int i = 10; data[i] != ','; i++)
+  {
+    NbCouleur[i-10] = data[i];
+  }
+  int nbCouleur = atoi(NbCouleur);
+  float numeroCercle = 360/nbCouleur;
   // Extraire le compteur et les couleurs RGB
   FILE *p = popen("gnuplot -persist", "w");
   printf("Plot\n");
-  int count = 0;
+  int count = 1;
   int n;
   char *saveptr = NULL;
   char *str = data;
@@ -48,7 +54,7 @@ void plot(char *data)
     else
     {
       // Le numéro 36, parceque 360° (cercle) / 10 couleurs = 36
-      fprintf(p, "0 0 10 %d %d 0x%s\n", (count - 1) * 36, count * 36, token + 1);
+      fprintf(p, "0 0 10 %d %d 0x%s\n", (count - 1) * numeroCercle, count*numeroCercle * 36, token + 1);
     }
     count++;
   }
@@ -334,8 +340,9 @@ int main()
 
   int socketfd;
   int bind_status;
+  int client_addr_len;
 
-  struct sockaddr_in server_addr;
+  struct sockaddr_in server_addr server_addr, client_addr;
 
   /*
    * Creation d'une socket

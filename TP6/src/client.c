@@ -71,7 +71,7 @@ int envoie_operation(int socketfd)
   // Demandez à l'utilisateur d'entrer un message
   char message[100];
   printf("Votre calcul {op} {num1} {num2} (max 100 caracteres): ");
-  fgets(message, sizeof(message), stdin);
+  fgets(message, 1024, stdin);
   strcpy(data, "calcule: ");
   strcat(data, message);
 
@@ -315,9 +315,10 @@ char *StringToJson(char *data){
 int main(int argc, char **argv)
 {
   int socketfd;
+  int bind_status;
 
-  struct sockaddr_in server_addr;
-
+  struct sockaddr_in server_addr, client_addr;
+  
   if (argc < 2)
   {
     printf("usage: ./client chemin_bmp_image\n");
@@ -347,16 +348,25 @@ int main(int argc, char **argv)
     perror("connection serveur");
     exit(EXIT_FAILURE);
   }
-  if (argc != 2)
-  {
-    // envoyer et recevoir un message
-    envoie_recois_message(socketfd);
-  }
-  else
-  {
-    // envoyer et recevoir les couleurs prédominantes
-    // d'une image au format BMP (argv[1])
-    envoie_couleurs(socketfd, argv[1]);
+
+  int valid = 0;
+  while (valid == 0) {
+    printf("Choisissez une fonction : message, calcule ou couleurs\n");
+    char input[16];
+    fgets(input, 15, stdin);
+    if (strcmp(input, "message") == 10){
+      envoie_recois_message(socketfd);
+      valid = 1;
+    }
+    else if (strcmp(input, "calcule") == 10){
+      envoie_operateur_numeros(socketfd);
+      valid = 1;
+    }
+    else if (strcmp(input, "couleurs") == 10){
+      printf("Le chemin doit être renseigné lors du lancement du programme (ex : \"./client ./images/800px-2006-10-18Dahlia03m.bmp\"\n");
+      envoie_couleurs(socketfd, argv[1]);
+      valid = 1;
+    }
   }
 
   close(socketfd);
