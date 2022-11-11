@@ -39,7 +39,6 @@ int recois_envoie_message(int socketfd)
   struct sockaddr_in client_addr;
   char data[1024];
 
-  
   unsigned int client_addr_len = sizeof(client_addr);
 
   // nouvelle connection de client
@@ -72,7 +71,8 @@ int recois_envoie_message(int socketfd)
 
   //Si le message commence par le mot: 'message:' 
   if (strcmp(code, "message:") == 0) {
-    memset(data, 0, sizeof(data));
+    char DataToClient[1024];
+    memset(DataToClient, 0, sizeof(DataToClient));
     char message[100];
     printf("Votre message (max 1000 caracteres): ");
     fgets(message, 1024, stdin);
