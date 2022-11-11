@@ -29,15 +29,15 @@ void lire_dossier_recursif(char *nom_dossier) // Fonction récursive
     struct dirent *fichier;
     dossier = opendir(nom_dossier);
 
-    if (dossier == NULL)
+    if (dossier == NULL) // si le dossier n'existe pas
     {
         printf("Impossible d'ouvrir le dossier %s !\n", nom_dossier);
         exit(1);
     }
     while ((fichier = readdir(dossier)) != NULL)
     {
-        printf("%s \n", fichier->d_name);
-        if (fichier->d_type == DT_DIR)
+        printf("%s \n", fichier->d_name); // affiche le nom du fichier
+        if (fichier->d_type == DT_DIR) // si le fichier est un dossier
         {
             if (strcmp(fichier->d_name, ".") != 0 && strcmp(fichier->d_name, "..") != 0)
             {

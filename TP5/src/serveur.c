@@ -57,10 +57,7 @@ int recois_envoie_message(int socketfd)
     return (EXIT_FAILURE);
   }
 
-  /*
-   * extraire le code des données envoyées par le client.
-   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
-   */
+
   printf ("Message recu: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
@@ -107,10 +104,7 @@ int recois_numeros_calcule(int socketfd) {
     return(EXIT_FAILURE);
   }
   
-  /*
-   * extraire le code des données envoyées par le client. 
-   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
-   */
+
   printf ("Message recu: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
