@@ -229,7 +229,7 @@ char *JsonToString(char *data){
   return RetString;
 }
 
-char *StringToJSON(char *data){
+char *StringToJson(char *data){
 	int sizeOfData = strlen(data);
 	char *RetString = malloc(sizeof(char)*1024);
 	int TypeOfTransmission;
