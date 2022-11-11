@@ -62,7 +62,7 @@ void plot(char *data)
 int renvoie_message(int client_socket_fd, char *data)
 {
 
-  strcpy(data, StringToJSON(data));
+  strcpy(data, StringToJson(data));
 
   int data_size = write(client_socket_fd, (void *)data, strlen(data));
 
@@ -229,7 +229,7 @@ char *JsonToString(char *data){
   return RetString;
 }
 
-char *StringToJSON(char *data){
+char *StringToJson(char *data){
 	int sizeOfData = strlen(data);
 	char *RetString = malloc(sizeof(char)*1024);
 	int TypeOfTransmission;
