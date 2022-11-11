@@ -63,25 +63,27 @@ void analyse(char *pathname, char *data)
   // compte de couleurs
   couleur_compteur *cc = analyse_bmp_image(pathname);
 
+  int nombre = 0;
+  while ((0<nombre && nombre<=30) == 0){
+    printf("Nombre de couleur (entre 1 et 30) : \n");
+    scanf("%d", &nombre);
+  }
   int count;
   strcpy(data, "couleurs: ");
-  char temp_string[10] = "10,";
-  if (cc->size < 10)
-  {
+  char temp_string[10];
+  sprintf(temp_string, "%d,", nombre);
+  if (cc->size < 30) {
     sprintf(temp_string, "%d,", cc->size);
   }
   strcat(data, temp_string);
-
-  // choisir 10 couleurs
-  for (count = 1; count < 11 && cc->size - count > 0; count++)
-  {
-    if (cc->compte_bit == BITS32)
-    {
-      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc24[cc->size - count].c.rouge, cc->cc.cc32[cc->size - count].c.vert, cc->cc.cc32[cc->size - count].c.bleu);
+  
+  //choisir 30 couleurs
+  for (count = 1; count < nombre+1 && cc->size - count >0; count++) {
+    if(cc->compte_bit ==  BITS32) {
+      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc24[cc->size-count].c.rouge,cc->cc.cc32[cc->size-count].c.vert,cc->cc.cc32[cc->size-count].c.bleu);
     }
-    if (cc->compte_bit == BITS24)
-    {
-      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc32[cc->size - count].c.rouge, cc->cc.cc32[cc->size - count].c.vert, cc->cc.cc32[cc->size - count].c.bleu);
+    if(cc->compte_bit ==  BITS24) {
+      sprintf(temp_string, "#%02x%02x%02x,", cc->cc.cc32[cc->size-count].c.rouge,cc->cc.cc32[cc->size-count].c.vert,cc->cc.cc32[cc->size-count].c.bleu);
     }
     strcat(data, temp_string);
   }
