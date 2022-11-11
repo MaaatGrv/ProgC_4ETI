@@ -102,6 +102,11 @@ int recois_envoie_message(int socketfd)
     return (EXIT_FAILURE);
   }
 
+  // Verif Json
+  if (strchr(data, '{') != NULL & strchr(data, '}') != NULL){
+    strcpy(data,JsonToString(data));
+  }
+
   /*
    * extraire le code des données envoyées par le client.
    * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
@@ -113,16 +118,212 @@ int recois_envoie_message(int socketfd)
   // Si le message commence par le mot: 'message:'
   if (strcmp(code, "message:") == 0)
   {
+    memset(data, 0, sizeof(data));
+    char message[1000];
+    printf("Votre message (max 100 caracteres): ");
+    fgets(message, 1024, stdin);
+    strcpy(data, "message:");
+    strcat(data, message);
+
     renvoie_message(client_socket_fd, data);
   }
-  else
-  {
+  else if (strcmp(code, "calcule:") == 0){
+    char op = ' ';
+    int num1, num2, result;
+    sscanf(data, "%*s %d %c %d", &num1, &op, &num2);
+    switcg(op){
+      case '+':
+        result = num1 + num2;
+        break;
+      case '-':
+        result = num1 - num2;
+        break;
+      case '*':
+        result = num1 * num2;
+        break;
+      case '/':
+        result = num1 / num2;
+        break;
+      default:
+        result = 0;
+        break;
+    }
+    // Convertir le résultat en chaine de caractères
+    memset(data, 0, sizeof(data));
+    strcpy(data, 0, "calcule:");
+    char strResult[100];
+    sprintf(strResult, "%d", result);
+
+    renvoie_message(client_socket_fd, data);
+  }
+  else if (strcmp(code, "couleur:") == 0){
     plot(data);
   }
 
   // fermer le socket
   close(socketfd);
   return (EXIT_SUCCESS);
+}
+
+char *JsonToString(char *data){
+  int sizeOfData = strlen(data);
+  int WriteEverything = 0;
+  int FirstColor = 0;
+  int TypeOfTransmission = 0;
+  char *RetString = malloc(sizeof(char)*sizeOfData);
+  char Mot[100] = {};
+  int indexBuffer = 0;
+  for(int i = 0; i<sizeOfData; i++){
+    if (data[i] == '\"'){
+      if (indexBuff == 0){
+	      indexBuff=i;
+      }
+      else{
+        for(int j = 0; j<i-indexBuff-1; j++){
+          Mot[j] = data[j + indexBuff + 1];
+        }
+        indexBuff = 0;
+	//printf("%s\n",Mot);
+	if (strcmp(Mot,"message") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 1;
+	}
+	else if(strcmp(Mot,"calcule") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 2;
+	}
+	else if(strcmp(Mot,"couleurs") == 0){
+		strcpy(RetString, Mot);
+		strcat(RetString, ": ");
+		TypeOfTransmission = 3;
+	}
+	else if(strcmp(Mot,"valeurs") == 0){
+		WriteEverything = 1;
+	}
+	else if(WriteEverything == 1){
+		//signe précédent
+		if (TypeOfTransmission == 3){
+			if (FirstColor == 0){
+				FirstColor = 1;
+			}
+			else{
+				strcat(RetString,",#");
+			}
+		}	
+		strcat(RetString,Mot);
+		//séparateur
+		if (TypeOfTransmission == 2){
+		strcat(RetString," ");
+		}
+	}
+	memset(Mot, 0, sizeof(Mot));
+      }
+    }
+  }
+  //printf("%s\n",RetString);
+  return RetString;
+}
+
+char *StringToJSON(char *data){
+	int sizeOfData = strlen(data);
+	char *RetString = malloc(sizeof(char)*1024);
+	int TypeOfTransmission;
+	int WriteEverything = 0;
+	char Mot[1024] = {};
+	int indexBuff = 0;
+	int firstColor = 0;
+	strcat(RetString, "{\"code\" : \"");
+	for(int i = 0; i<sizeOfData; i++){
+    		if (data[i] == ':'){
+        		for(int j = 0; j<i; j++){
+         			Mot[j] = data[j];
+			}
+			//printf("%s\n",Mot);
+			strcat(RetString,Mot);
+			strcat(RetString, "\",\"valeurs\" : [\"");
+			if (strcmp(Mot,"message") == 0){
+				TypeOfTransmission = 1;
+			}
+			else if(strcmp(Mot,"calcule") == 0){
+				TypeOfTransmission = 2;
+			}
+			else if(strcmp(Mot,"couleurs") == 0){
+				TypeOfTransmission = 3;
+			}
+			memset(Mot, 0, sizeof(Mot));
+		}
+		switch(TypeOfTransmission){
+			case 1:
+				if (WriteEverything == 1){
+					char cToStr[2];
+					cToStr[1] = '\0';
+					cToStr[0] = data[i];
+					strcat(RetString, cToStr);
+				}
+				if ((data[i] ==  ' ') && (data[i-1] == ':')){
+					WriteEverything = 1;
+				}
+				break;
+			case 2:
+				if (data[i] == ' ' || i == sizeOfData-1){
+					if (i == sizeOfData-1){
+						i++;
+					}
+					if (indexBuff == 0 || indexBuff == 7){
+						indexBuff = i+1;
+					}
+					else{
+						for(int j = 0; j<i-indexBuff; j++){
+			 				Mot[j] = data[indexBuff+j];
+						}
+						strcat(RetString,Mot);
+						if (i != sizeOfData){
+							strcat(RetString,"\",\"");
+						}
+						indexBuff = i+1;
+						memset(Mot, 0, sizeof(Mot));
+					}
+				}
+				
+			break;
+			case 3:
+				if (data[i] == ' '){
+					indexBuff = i+1;
+				}
+				else if (data[i] == ',' && indexBuff !=0){
+					for(int j = 0; j<i-indexBuff; j++){
+			 			Mot[j] = data[indexBuff+j];
+					}
+					strcat(RetString,Mot);
+					strcat(RetString,"\",\"");
+					memset(Mot, 0, sizeof(Mot));
+				}
+				else if (data[i] == '#'){
+					indexBuff = i+1;
+					firstColor = 1;
+				}
+				else if ((data[i] == ',' || i == sizeOfData-1) && firstColor == 1){
+					if (i == sizeOfData-1){
+						i++;
+					}
+					for(int j = 0; j<i-indexBuff; j++){
+			 				Mot[j] = data[indexBuff+j];
+						}
+						strcat(RetString,Mot);
+						if (i != sizeOfData){
+							strcat(RetString,"\",\"");
+						}
+						indexBuff = i+1;
+						memset(Mot, 0, sizeof(Mot));
+				}
+		}
+		
+	}
+	strcat(RetString, "\"]}");
+	//printf("%s\n",RetString);
+	return RetString;	
 }
 
 int main()
