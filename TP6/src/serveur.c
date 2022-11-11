@@ -16,6 +16,7 @@
 
 #include "serveur.h"
 
+// Gestion de la fonction des couleurs et affichage de la fenêtre
 void plot(char *data)
 {
   char NbCouleur[8];
@@ -68,11 +69,11 @@ void plot(char *data)
 int renvoie_message(int client_socket_fd, char *data)
 {
 
-  strcpy(data, StringToJson(data));
+  strcpy(data, StringToJson(data)); // Convertir le message en JSON
 
-  int data_size = write(client_socket_fd, (void *)data, strlen(data));
+  int data_size = write(client_socket_fd, (void *)data, strlen(data)); // Envoyer le message au client
 
-  if (data_size < 0)
+  if (data_size < 0) 
   {
     perror("erreur ecriture");
     return (EXIT_FAILURE);
@@ -86,10 +87,10 @@ int renvoie_message(int client_socket_fd, char *data)
  */
 int recois_envoie_message(int socketfd)
 {
-  struct sockaddr_in client_addr;
-  char data[1024];
+  struct sockaddr_in client_addr; // adresse du client
+  char data[1024];               // données envoyées par le client
 
-  unsigned int client_addr_len = sizeof(client_addr);
+  unsigned int client_addr_len = sizeof(client_addr); 
 
   // nouvelle connection de client
   int client_socket_fd = accept(socketfd, (struct sockaddr *)&client_addr, &client_addr_len);
@@ -128,15 +129,15 @@ int recois_envoie_message(int socketfd)
   if (strcmp(code, "message:") == 0)
   {
     memset(data, 0, sizeof(data));
-    char message[1000];
-    printf("Votre message (max 100 caracteres): ");
-    fgets(message, 1024, stdin);
-    strcpy(data, "message:");
-    strcat(data, message);
+    char message[1000]; // message à envoyer au client
+    printf("Votre message (max 100 caracteres): "); // saisir le message
+    fgets(message, 1024, stdin);                   // lire le message
+    strcpy(data, "message:");                     // préparer le message à envoyer au client
+    strcat(data, message); 
 
-    renvoie_message(client_socket_fd, data);
+    renvoie_message(client_socket_fd, data); 
   }
-  else if (strcmp(code, "calcule:") == 0){
+  else if (strcmp(code, "calcule:") == 0){ 
     char op = ' ';
     int num1, num2, result;
     sscanf(data, "%*s %d %c %d", &num1, &op, &num2);
@@ -174,15 +175,15 @@ int recois_envoie_message(int socketfd)
   return (EXIT_SUCCESS);
 }
 
-char *JsonToString(char *data){
+char *JsonToString(char *data){ 
   int sizeOfData = strlen(data);
-  int WriteEverything = 0;
+  int WriteEverything = 0; 
   int FirstColor = 0;
   int TypeOfTransmission;
   char *RetString = malloc(sizeof(char)*1024);
   char Mot[100] = {};
   int indexBuff = 0;
-  for(int i = 0; i<sizeOfData; i++){
+  for(int i = 0; i<sizeOfData; i++){ 
     if (data[i] == '\"'){
       if (indexBuff == 0){
 	      indexBuff=i;
@@ -192,7 +193,9 @@ char *JsonToString(char *data){
           Mot[j] = data[j + indexBuff + 1];
         }
         indexBuff = 0;
-	//printf("%s\n",Mot);
+  
+  // Convertion du message en JSON
+      
 	if (strcmp(Mot,"message") == 0){
 		strcpy(RetString, Mot);
 		strcat(RetString, ": ");
@@ -212,7 +215,7 @@ char *JsonToString(char *data){
 		WriteEverything = 1;
 	}
 	else if(WriteEverything == 1){
-		//signe précédent
+		// signe précédent
 		if (TypeOfTransmission == 3){
 			if (FirstColor == 0){
 				FirstColor = 1;
@@ -231,7 +234,6 @@ char *JsonToString(char *data){
       }
     }
   }
-  //printf("%s\n",RetString);
   return RetString;
 }
 
@@ -244,12 +246,13 @@ char *StringToJson(char *data){
 	int indexBuff = 0;
 	int firstColor = 0;
 	strcat(RetString, "{\"code\" : \"");
+
+  // Convertion du message en JSON
 	for(int i = 0; i<sizeOfData; i++){
     		if (data[i] == ':'){
         		for(int j = 0; j<i; j++){
          			Mot[j] = data[j];
 			}
-			//printf("%s\n",Mot);
 			strcat(RetString,Mot);
 			strcat(RetString, "\",\"valeurs\" : [\"");
 			if (strcmp(Mot,"message") == 0){
@@ -328,10 +331,8 @@ char *StringToJson(char *data){
 						memset(Mot, 0, sizeof(Mot));
 				}
 		}
-		
 	}
 	strcat(RetString, "\"]}");
-	//printf("%s\n",RetString);
 	return RetString;	
 }
 

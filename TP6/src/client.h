@@ -19,6 +19,8 @@
  */
 int envoie_recois_message(int socketfd);
 int envoie_operation(int socketfd);
+
+// Ajout des fonctions JsonToString et StringToJson
 char *JsonToString(char *data);
 char *StringToJson(char *data);
 

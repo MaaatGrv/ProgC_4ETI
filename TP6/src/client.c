@@ -106,10 +106,10 @@ void analyse(char *pathname, char *data)
 
   int nombre = 0;
   while ((0<nombre && nombre<=30) == 0){
-    printf("Nombre de couleur (entre 1 et 30) : \n");
+    printf("Nombre de couleur (entre 1 et 30) : \n"); // Demandez à l'utilisateur d'entrer un message
     scanf("%d", &nombre);
   }
-  int count;
+  int count; 
   strcpy(data, "couleurs: ");
   char temp_string[10];
   sprintf(temp_string, "%d,", nombre);
@@ -350,6 +350,7 @@ int main(int argc, char **argv)
   }
 
   int valid = 0;
+  // Detection de la requete du client
   while (valid == 0) {
     printf("Choisissez une fonction : message, calcule ou couleurs\n");
     char input[16];
